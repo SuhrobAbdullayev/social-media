@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
                        is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
                        refresh_token VARCHAR(1000),
                        created_at TIMESTAMP,
-                       updated_at TIMESTAMP
+                       updated_at TIMESTAMP,
+                        created_by VARCHAR(255),
+                        updated_by VARCHAR(255),
 );
 
 -- Create role table
@@ -18,7 +20,9 @@ CREATE TABLE IF NOT EXISTS role (
                       id BIGSERIAL PRIMARY KEY,
                       role_name VARCHAR(255) NOT NULL UNIQUE,
                       created_at TIMESTAMP,
-                      updated_at TIMESTAMP
+                      updated_at TIMESTAMP,
+                        created_by VARCHAR(255),
+                        updated_by VARCHAR(255),
 );
 
 -- Create permission table
