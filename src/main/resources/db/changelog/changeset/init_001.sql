@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
                        created_at TIMESTAMP,
                        updated_at TIMESTAMP,
                         created_by VARCHAR(255),
-                        updated_by VARCHAR(255),
+                        updated_by VARCHAR(255)
 );
 
 -- Create role table
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS role (
                       created_at TIMESTAMP,
                       updated_at TIMESTAMP,
                         created_by VARCHAR(255),
-                        updated_by VARCHAR(255),
+                        updated_by VARCHAR(255)
 );
 
 -- Create permission table
