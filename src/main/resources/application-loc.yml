@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  #database
+  #mac: d: postgres u: postgres p: password
+  #win: d: suhrob u: suhrob p: 123
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/suhrob?currentSchema=social_media
+    username: suhrob
+    password: 123
+  #jpa
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+upload:
+  folder: root/ProjectFiles
+
