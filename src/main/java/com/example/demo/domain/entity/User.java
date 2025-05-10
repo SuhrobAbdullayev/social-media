@@ -63,6 +63,9 @@ public class User extends DateAudit implements Serializable {
     @Column(name = "is_deleted", columnDefinition = "boolean default false", nullable = false, insertable = false)
     private Boolean isDeleted;
 
+    @Column(name = "is_blocked", columnDefinition = "boolean default false", nullable = false, insertable = false)
+    private Boolean isBlocked;
+
     @Column(name = "refresh_token", unique = true, length = 1000)
     private String refreshToken;
 }

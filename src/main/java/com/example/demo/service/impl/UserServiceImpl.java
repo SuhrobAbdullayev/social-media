@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService {
             return userRepository.existsByUsername(username);
 
         } catch (Exception e) {
-            log.error("talaba topilmadi, {}", e.getMessage());
-            throw new UserException("talaba topilmadi");
+            log.error("Foydalanuvchi topilmadi, {}", e.getMessage());
+            throw new UserException("Foydalanuvchi topilmadi");
         }
     }
 
@@ -89,7 +89,6 @@ public class UserServiceImpl implements UserService {
     public Boolean checkPassword(String password) {
         return password.length() >= 4;
     }
-
     @Override
     public void logout(String username) {
         log.info("The process of logout has started");

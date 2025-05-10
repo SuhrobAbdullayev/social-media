@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> handleUserException(RuntimeException exception) {
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
         String errorMessage = exception.getMessage();
         ResponseDTO<Object> responseDTO = ResponseDTO.error(errorMessage, null);
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
@@ -21,4 +21,20 @@ public class GlobalExceptionHandler {
         ResponseDTO<Object> responseDTO = ResponseDTO.error(errorMessage, null);
         return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(PostException.class)
+    public ResponseEntity<Object> handlePostException(RuntimeException exception) {
+        String errorMessage = exception.getMessage();
+        ResponseDTO<Object> responseDTO = ResponseDTO.error(errorMessage, null);
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<Object> handleUserException(RuntimeException exception) {
+        String errorMessage = exception.getMessage();
+        ResponseDTO<Object> responseDTO = ResponseDTO.error(errorMessage, null);
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
