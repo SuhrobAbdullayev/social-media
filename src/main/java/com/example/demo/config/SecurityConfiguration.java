@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                                         "/docs/**",
                                         "/docs",
                                         "/error",
+                                        "/posts/download/**",
                                         "/auth/**"
                                 ).permitAll()
                                 .anyRequest()
