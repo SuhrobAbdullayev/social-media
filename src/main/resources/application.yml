@@ -27,3 +27,14 @@ springdoc:
     operations-sorter: method
     path: /docs
     default-models-expand-depth: -1
+
+services:
+  s3:
+    endpoint: http://localhost:9000
+    minio-host: https://localhost:9000
+    access-key: user
+    secret-key: password
+    bucket-name: posts
+    region: us-east-1
+file:
+  upload-dir: D:\\uploads

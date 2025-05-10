@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.1'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.liquibase.gradle' version '2.2.0'
 }
 
 group = 'com.example'
@@ -40,6 +41,11 @@ dependencies {
 
 	//ilquibase
 	implementation 'org.liquibase:liquibase-core:4.23.1'
+
+	// Amazon S3
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.481")
+	implementation("io.minio:minio:8.5.17")
+	implementation("org.imgscalr:imgscalr-lib:4.2")
 }
 
 tasks.named('test') {

@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.dto.request_dto.PostRequestDto;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface PostService {
 
-    void createPost(PostRequestDto postRequestDto);
+    String createPost(MultipartFile media, String text, String token);
 }
