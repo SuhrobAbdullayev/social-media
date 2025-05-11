@@ -49,6 +49,9 @@ public class PostServiceImpl implements PostService {
         if (user == null) {
             throw new UserException("Bunday foydalanuvchi mavjud emas");
         }
+        if (user.getIsBlocked()){
+            throw new UserException("Siz bloklangansiz");
+        }
         return user;
     }
 
@@ -56,7 +59,6 @@ public class PostServiceImpl implements PostService {
     public String createPost(MultipartFile media, String text, String token) {
         User user = getUser(token);
         String key = null;
-
         if (media != null && !media.isEmpty()) {
             key = UUID.randomUUID().toString();
 

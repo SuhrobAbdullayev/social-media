@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UserException("Bu foydalanuvch mavjud emas");
         }
+        if (user.getIsBlocked()) {
+            throw new UserException("Bu foydalanuvchi bloklangan");
+        }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginVM.getUsername().trim().toLowerCase(), loginVM.getPassword()));
         return jwtTokenProvider.createToken(user.getUsername().trim().toLowerCase(), loginVM.isRememberMe());
     }
