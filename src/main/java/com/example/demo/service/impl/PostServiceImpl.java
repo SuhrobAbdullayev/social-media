@@ -6,11 +6,13 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.example.demo.domain.dto.response_dto.PostResponseDto;
+import com.example.demo.domain.entity.Like;
 import com.example.demo.domain.entity.Post;
 import com.example.demo.domain.entity.User;
 import com.example.demo.exceptions.PostException;
 import com.example.demo.exceptions.UserException;
 import com.example.demo.jwt_utils.JwtTokenProvider;
+import com.example.demo.repository.LikeRepository;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.PostService;
@@ -33,6 +35,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AmazonS3 amazonS3;
+    private final LikeRepository likeRepository;
 
     @Value("${services.s3.bucket-name}")
     private String bucketName;
@@ -128,6 +131,35 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void likePost(Long id, String token) {
+        User user = getUser(token);
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostException("Post topilmadi"));
+
+        boolean alreadyLiked = likeRepository.existsByPostIdAndUserId(post.getId(), user.getId());
+        if (alreadyLiked) {
+            throw new PostException("Siz bu postni allaqachon yoqtirgansiz");
+        }
+
+        post.setLikeCount(post.getLikeCount() + 1);
+        postRepository.save(post);
+        Like like = new Like();
+        like.setPostId(post.getId());
+        like.setUserId(user.getId());
+        likeRepository.save(like);
+    }
+
+    @Override
+    public void sharePost(Long id, String token) {
+        User user = getUser(token);
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostException("Post topilmadi"));
+
+        post.setShareCount(post.getShareCount() + 1);
+        postRepository.save(post);
+    }
+
+    @Override
     public PostResponseDto getPostById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostException("Post topilmadi"));
@@ -213,5 +245,6 @@ public class PostServiceImpl implements PostService {
                 .isBlocked(post.isBlocked())
                 .build();
     }
+
 
 }

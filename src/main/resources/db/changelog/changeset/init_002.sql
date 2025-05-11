@@ -1,4 +1,4 @@
-CREATE TABLE posts (
+CREATE TABLE if not exists posts (
                        id SERIAL PRIMARY KEY,
                        key VARCHAR(255),
                        text TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE posts (
                         date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE comments (
+CREATE TABLE if not exists comments (
                           id SERIAL PRIMARY KEY,
                           text TEXT,
                           like_count INTEGER NOT NULL DEFAULT 0,
@@ -25,4 +25,11 @@ CREATE TABLE IF NOT EXISTS followers (
     user_id BIGINT NOT NULL,
     follower_id BIGINT NOT NULL,
     date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE if not exists likes(
+                                    id SERIAL PRIMARY KEY,
+                                    post_id BIGINT NOT NULL,
+                                    user_id BIGINT NOT NULL,
+                                    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

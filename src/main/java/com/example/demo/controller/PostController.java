@@ -86,4 +86,24 @@ public class PostController {
         postService.deletePost(id, token);
         return ResponseEntity.status(HttpStatus.OK).body("Post o'chirildi");
     }
+
+    @PostMapping("/like/{id}")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> likePost(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String token
+    ) {
+        postService.likePost(id, token);
+        return ResponseEntity.status(HttpStatus.OK).body("Post like qilindi");
+    }
+
+    @PostMapping("/share/{id}")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> sharePost(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String token
+    ) {
+        postService.sharePost(id, token);
+        return ResponseEntity.status(HttpStatus.OK).body("Post ulashildi");
+    }
 }

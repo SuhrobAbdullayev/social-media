@@ -19,4 +19,8 @@ public interface PostService {
     InputStream downloadFile(String key) throws Exception;
 
     void deletePost(Long id, String token);
+
+    void likePost(Long id, String token);
+
+    void sharePost(Long id, String token);
 }
