@@ -4,7 +4,9 @@ import com.example.demo.domain.dto.request_dto.CommentRequestDto;
 import com.example.demo.domain.dto.response_dto.CommentResponseDto;
 import com.example.demo.domain.dto.response_dto.CommentUserResponseDto;
 import com.example.demo.domain.entity.Comment;
+import com.example.demo.domain.entity.Post;
 import com.example.demo.domain.entity.User;
+import com.example.demo.exceptions.PostException;
 import com.example.demo.exceptions.UserException;
 import com.example.demo.jwt_utils.JwtTokenProvider;
 import com.example.demo.repository.CommentRepository;
@@ -70,12 +72,19 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public String getAllUserComments(String token) {
-        return "";
-    }
-
-    @Override
-    public String deleteComment(Long commentId, String token) {
-        return "";
+    public void deleteComment(Long commentId, String token) {
+        User user = postService.getUser(token);
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new PostException("Comment topilmadi"));
+        if (!comment.getUserId().equals(user.getId())) {
+            Post post = postRepository.findById(comment.getPostId())
+                    .orElseThrow(() -> new PostException("Post topilmadi"));
+            if (post.getUserId().equals(user.getId())){
+                commentRepository.delete(comment);
+            }else{
+                throw new UserException("Siz bu kommentariyani o'chira olmaysiz");
+            }
+        }
+        commentRepository.delete(comment);
     }
 }

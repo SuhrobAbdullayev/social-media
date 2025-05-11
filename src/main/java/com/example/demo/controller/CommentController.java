@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,14 @@ public class CommentController {
     @PreAuthorize("hasAnyAuthority('read')")
     public ResponseEntity<List<CommentResponseDto>> getAllCommentsByPostId(@RequestParam("postId") Long postId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsByPostId(postId));
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<String> deleteComment(@RequestParam("commentId") Long commentId,
+                                        @RequestHeader("Authorization") String token) {
+        commentService.deleteComment(commentId, token);
+        return ResponseEntity.status(HttpStatus.OK).body("Comment o`chirildi");
     }
 
 }

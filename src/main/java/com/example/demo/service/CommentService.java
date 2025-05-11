@@ -11,7 +11,5 @@ public interface CommentService {
 
     List<CommentResponseDto> getAllCommentsByPostId(Long postId);
 
-    String getAllUserComments(String token);
-
-    String deleteComment(Long commentId, String token);
+    void deleteComment(Long commentId, String token);
 }
