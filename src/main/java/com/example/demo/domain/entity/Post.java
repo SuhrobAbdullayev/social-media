@@ -47,11 +47,11 @@ public class Post implements Serializable {
 
     @JsonProperty("is_media")
     @Column(name = "is_media", columnDefinition = "boolean default false", nullable = false)
-    private boolean isMedia;
+    private boolean media;
 
     @JsonProperty("is_blocked")
     @Column(name = "is_blocked", columnDefinition = "boolean default false", nullable = false, insertable = false)
-    private boolean isBlocked;
+    private boolean blocked;
 
     @JsonProperty("user_id")
     @Column(name = "user_id", nullable = false, updatable = false)

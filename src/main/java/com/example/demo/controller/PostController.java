@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,18 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> getPostById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostById(id));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> getAllUserPosts(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllUserPosts(token));
+    }
+
     @GetMapping("/download/{key}")
     public ResponseEntity<InputStreamResource> downloadResource(@PathVariable String key) {
         try {
@@ -51,5 +64,26 @@ public class PostController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> editPost(
+            @PathVariable Long id,
+            @RequestPart(value = "media", required = false) MultipartFile media,
+            @RequestPart("text") String text,
+            @RequestHeader("Authorization") String token
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.editPost(id, text, media, token));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('read')")
+    public ResponseEntity<?> deletePost(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String token
+    ) {
+        postService.deletePost(id, token);
+        return ResponseEntity.status(HttpStatus.OK).body("Post o'chirildi");
     }
 }
