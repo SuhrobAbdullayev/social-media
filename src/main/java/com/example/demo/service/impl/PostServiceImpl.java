@@ -40,7 +40,8 @@ public class PostServiceImpl implements PostService {
     @Value("${services.s3.bucket-name}")
     private String bucketName;
 
-    private User getUser(String token) {
+    @Override
+    public User getUser(String token) {
         String rawToken = token.replace("Bearer ", "");
         String username = jwtTokenProvider.getUser(rawToken).toLowerCase();
         User user = userRepository.findByUsername(username);
@@ -169,6 +170,9 @@ public class PostServiceImpl implements PostService {
                 .id(post.getId())
                 .key(post.getKey())
                 .text(post.getText())
+                .likeCount(post.getLikeCount())
+                .viewCount(post.getViewCount())
+                .shareCount(post.getShareCount())
                 .isMedia(post.isMedia())
                 .isBlocked(post.isBlocked())
                 .build();
@@ -186,6 +190,9 @@ public class PostServiceImpl implements PostService {
                         .id(post.getId())
                         .key(post.getKey())
                         .text(post.getText())
+                        .likeCount(post.getLikeCount())
+                        .viewCount(post.getViewCount())
+                        .shareCount(post.getShareCount())
                         .isMedia(post.isMedia())
                         .isBlocked(post.isBlocked())
                         .build())
@@ -241,6 +248,9 @@ public class PostServiceImpl implements PostService {
                 .id(post.getId())
                 .key(post.getKey())
                 .text(post.getText())
+                .likeCount(post.getLikeCount())
+                .viewCount(post.getViewCount())
+                .shareCount(post.getShareCount())
                 .isMedia(post.isMedia())
                 .isBlocked(post.isBlocked())
                 .build();

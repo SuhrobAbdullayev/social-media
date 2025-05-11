@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.dto.response_dto.PostResponseDto;
+import com.example.demo.domain.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
 
 public interface PostService {
+
+    User getUser(String token);
 
     String createPost(MultipartFile media, String text, String token);
 
