@@ -46,6 +46,12 @@ dependencies {
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.481")
 	implementation("io.minio:minio:8.5.17")
 	implementation("org.imgscalr:imgscalr-lib:4.2")
+
+	//websocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	//For JSON serialization/deserialization in WebSocket messages
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations'
 }
 
 tasks.named('test') {
